@@ -24,7 +24,7 @@ const getOne = (id) => {
   });
 };
 
-const create = ({ title, descrition }) => {
+const create = ( title, descrition ) => {
   return new Promise((resolve, reject) => {
     db.query(
       "INSERT INTO task (title,description) VALUES (?,?)",
@@ -40,7 +40,34 @@ const create = ({ title, descrition }) => {
   });
 };
 
+const update = ({ title, description },id) => {
+  return new Promise((resolve, reject) => { 
+    db.query("UPDATE task SET title = ?, description = ? WHERE id = ?", [title, description,id], (err, result) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result)
+      }
+    });
+   })
+}
+
+const deleted = (id) => {
+  return new Promise((resolve, reject) => { 
+    db.query("DELETE FROM task WHERE id = ?", [id], (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+   })
+}
+
 export default {
   getAll,
   getOne,
+  create,
+  update,
+  deleted
 };

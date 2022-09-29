@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { success, error } from "../utils/response";
-import { getAll, getOne } from "../service/taskService";
+import { create, deleted, getAll, getOne, update } from "../service/taskService";
 
 const router = Router();
 
@@ -9,23 +9,23 @@ router.get("/", (req, res) => {
     .then((data) => success(res, data, 200))
     .catch(data=>error(res,data,400));
 });
-router.get("/", (req, res) => {
-  getOne()
+router.get("/:id", (req, res) => {
+  getOne(req)
     .then((data) => success(res, data, 200))
     .catch(data=>error(res,data,400));
 });
 router.post("/", (req, res) => {
-  getAll()
+  create(req)
     .then((data) => success(res, data, 200))
     .catch(data=>error(res,data,400));
 });
-router.patch("/", (req, res) => {
-  getAll()
+router.patch("/:id", (req, res) => {
+  update(req)
     .then((data) => success(res, data, 200))
     .catch(data=>error(res,data,400));
 });
-router.delete("/", (req, res) => {
-  getAll()
+router.delete("/:id", (req, res) => {
+  deleted(req)
     .then((data) => success(res, data, 200))
     .catch(data=>error(res,data,400));
 });
