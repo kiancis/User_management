@@ -13,11 +13,11 @@ export const verifyToken = async (req, res, next) => {
     req.userId = decode.user_id;
 
     const user = await Model.getOne(req.userId, { password: 0 });
-      if(!user) return res.status(404).json("user not verified")
+    if (!user) return res.status(404).json("user not verified");
 
     next();
   } catch (error) {
     console.log(error);
-   return  res.status(500).json({message: "unauthorized"});
+    return res.status(500).json({ message: "unauthorized" });
   }
 };
